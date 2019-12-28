@@ -20,8 +20,8 @@ import (
 	"github.com/astaxie/beego"
 	"github.com/astaxie/beego/logs"
 	"github.com/astaxie/beego/orm"
-	"github.com/lifei6671/mindoc/conf"
-	"github.com/lifei6671/mindoc/utils"
+	"github.com/ferrisz/mindoc/conf"
+	"github.com/ferrisz/mindoc/utils"
 	"math"
 )
 
@@ -74,13 +74,13 @@ func (m *Member) Login(account string, password string) (*Member, error) {
 
 	if err != nil {
 		if beego.AppConfig.DefaultBool("ldap_enable", false) == true {
-			logs.Info("转入LDAP登陆 ->", account)
+			logs.Info("1转入LDAP登陆 ->", account)
 			return member.ldapLogin(account, password)
 		} else if beego.AppConfig.String("http_login_url") != "" {
-			logs.Info("转入 HTTP 接口登陆 ->", account)
+			logs.Info("2转入 HTTP 接口登陆 ->", account)
 			return member.httpLogin(account, password)
 		} else {
-			logs.Error("用户登录 ->", err)
+			logs.Error("3用户登录 ->", err)
 			return member, ErrMemberNoExist
 		}
 	}
@@ -173,7 +173,7 @@ func (m *Member) httpLogin(account, password string) (*Member, error) {
 		"time":     []string{strconv.FormatInt(time.Now().Unix(), 10)},
 	}
 	h := md5.New()
-	h.Write([]byte(val.Encode() + beego.AppConfig.DefaultString("http_login_secret","")))
+	h.Write([]byte(val.Encode() + beego.AppConfig.DefaultString("http_login_secret", "")))
 
 	val.Add("sn", hex.EncodeToString(h.Sum(nil)))
 

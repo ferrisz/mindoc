@@ -2,7 +2,7 @@ package models
 
 import (
 	"github.com/astaxie/beego/orm"
-	"github.com/lifei6671/mindoc/conf"
+	"github.com/ferrisz/mindoc/conf"
 	"time"
 )
 
@@ -117,8 +117,7 @@ func (m *MemberRelationshipResult) FindNotJoinUsersByAccountOrRealName(bookId, l
 
 	var members []*Member
 
-	_, err := o.Raw(sql, bookId, keyWord,keyWord, limit).QueryRows(&members)
+	_, err := o.Raw(sql, bookId, keyWord, keyWord, limit).QueryRows(&members)
 
 	return members, err
 }
-

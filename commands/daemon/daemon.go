@@ -5,10 +5,10 @@ import (
 	"os"
 
 	"github.com/astaxie/beego"
+	"github.com/ferrisz/mindoc/commands"
+	"github.com/ferrisz/mindoc/conf"
+	"github.com/ferrisz/mindoc/controllers"
 	"github.com/kardianos/service"
-	"github.com/lifei6671/mindoc/commands"
-	"github.com/lifei6671/mindoc/conf"
-	"github.com/lifei6671/mindoc/controllers"
 	"path/filepath"
 )
 
@@ -44,7 +44,6 @@ func (d *Daemon) Start(s service.Service) error {
 
 func (d *Daemon) Run() {
 
-
 	commands.ResolveCommand(d.config.Arguments)
 
 	commands.RegisterFunction()
@@ -55,7 +54,7 @@ func (d *Daemon) Run() {
 
 	beego.ErrorController(&controllers.ErrorController{})
 
-	f,err := filepath.Abs(os.Args[0])
+	f, err := filepath.Abs(os.Args[0])
 
 	if err != nil {
 		f = os.Args[0]

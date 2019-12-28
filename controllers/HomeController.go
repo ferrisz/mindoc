@@ -1,11 +1,11 @@
 package controllers
 
 import (
-	"math"
 	"github.com/astaxie/beego"
-	"github.com/lifei6671/mindoc/models"
-	"github.com/lifei6671/mindoc/utils/pagination"
-	"github.com/lifei6671/mindoc/conf"
+	"github.com/ferrisz/mindoc/conf"
+	"github.com/ferrisz/mindoc/models"
+	"github.com/ferrisz/mindoc/utils/pagination"
+	"math"
 	"net/url"
 )
 

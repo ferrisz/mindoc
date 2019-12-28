@@ -20,12 +20,12 @@ import (
 	_ "github.com/astaxie/beego/cache/redis"
 	"github.com/astaxie/beego/logs"
 	"github.com/astaxie/beego/orm"
+	"github.com/ferrisz/mindoc/cache"
+	"github.com/ferrisz/mindoc/conf"
+	"github.com/ferrisz/mindoc/models"
+	"github.com/ferrisz/mindoc/utils/filetil"
 	"github.com/howeyc/fsnotify"
 	"github.com/lifei6671/gocaptcha"
-	"github.com/lifei6671/mindoc/cache"
-	"github.com/lifei6671/mindoc/conf"
-	"github.com/lifei6671/mindoc/models"
-	"github.com/lifei6671/mindoc/utils/filetil"
 	"net/http"
 )
 

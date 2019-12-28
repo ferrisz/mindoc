@@ -4,7 +4,7 @@ import (
 	"errors"
 	"github.com/astaxie/beego/logs"
 	"github.com/astaxie/beego/orm"
-	"github.com/lifei6671/mindoc/conf"
+	"github.com/ferrisz/mindoc/conf"
 )
 
 type Relationship struct {
@@ -35,7 +35,7 @@ func (m *Relationship) TableUnique() [][]string {
 	}
 }
 
-func (m *Relationship) QueryTable() orm.QuerySeter  {
+func (m *Relationship) QueryTable() orm.QuerySeter {
 	return orm.NewOrm().QueryTable(m.TableNameWithPrefix())
 }
 func NewRelationship() *Relationship {

@@ -7,11 +7,11 @@ import (
 	"time"
 
 	"github.com/astaxie/beego"
+	"github.com/ferrisz/mindoc/conf"
+	"github.com/ferrisz/mindoc/mail"
+	"github.com/ferrisz/mindoc/models"
+	"github.com/ferrisz/mindoc/utils"
 	"github.com/lifei6671/gocaptcha"
-	"github.com/lifei6671/mindoc/conf"
-	"github.com/lifei6671/mindoc/mail"
-	"github.com/lifei6671/mindoc/models"
-	"github.com/lifei6671/mindoc/utils"
 	"html/template"
 )
 
@@ -117,7 +117,7 @@ func (c *AccountController) Login() {
 				remember.Time = time.Now()
 				v, err := utils.Encode(remember)
 				if err == nil {
-					c.SetSecureCookie(conf.GetAppKey(), "login", v, time.Now().Add(time.Hour * 24 * 30).Unix())
+					c.SetSecureCookie(conf.GetAppKey(), "login", v, time.Now().Add(time.Hour*24*30).Unix())
 				}
 			}
 

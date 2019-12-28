@@ -1,10 +1,10 @@
 package models
 
 import (
-	"github.com/lifei6671/mindoc/conf"
 	"errors"
-	"github.com/astaxie/beego/orm"
 	"github.com/astaxie/beego"
+	"github.com/astaxie/beego/orm"
+	"github.com/ferrisz/mindoc/conf"
 )
 
 type TeamMember struct {
@@ -234,9 +234,9 @@ limit ?;`
 	return &result, err
 }
 
-func (m *TeamMember) FindByBookIdAndMemberId(bookId,memberId int) (*TeamMember, error) {
+func (m *TeamMember) FindByBookIdAndMemberId(bookId, memberId int) (*TeamMember, error) {
 	if bookId <= 0 || memberId <= 0 {
-		return nil,ErrInvalidParameter
+		return nil, ErrInvalidParameter
 	}
 	//一个用户可能在多个团队中，且一个项目可能有多个团队参与。因此需要查询用户最大权限。
 	sql := `select *
@@ -246,11 +246,11 @@ and team.member_id = ? order by team.role_id asc limit 1;`
 
 	o := orm.NewOrm()
 
-	err := o.Raw(sql,bookId,memberId).QueryRow(m)
+	err := o.Raw(sql, bookId, memberId).QueryRow(m)
 
 	if err != nil {
-		beego.Error("查询用户项目所在团队失败 ->bookId=",bookId," memberId=", memberId, err)
-		return nil,err
+		beego.Error("查询用户项目所在团队失败 ->bookId=", bookId, " memberId=", memberId, err)
+		return nil, err
 	}
-	return m,nil
+	return m, nil
 }

@@ -8,13 +8,13 @@ import (
 	"github.com/astaxie/beego/orm"
 	"github.com/boombuler/barcode"
 	"github.com/boombuler/barcode/qr"
-	"github.com/lifei6671/mindoc/conf"
-	"github.com/lifei6671/mindoc/models"
-	"github.com/lifei6671/mindoc/utils"
-	"github.com/lifei6671/mindoc/utils/cryptil"
-	"github.com/lifei6671/mindoc/utils/filetil"
-	"github.com/lifei6671/mindoc/utils/gopool"
-	"github.com/lifei6671/mindoc/utils/pagination"
+	"github.com/ferrisz/mindoc/conf"
+	"github.com/ferrisz/mindoc/models"
+	"github.com/ferrisz/mindoc/utils"
+	"github.com/ferrisz/mindoc/utils/cryptil"
+	"github.com/ferrisz/mindoc/utils/filetil"
+	"github.com/ferrisz/mindoc/utils/gopool"
+	"github.com/ferrisz/mindoc/utils/pagination"
 	"gopkg.in/russross/blackfriday.v2"
 	"html/template"
 	"image/png"
@@ -246,7 +246,7 @@ func (c *DocumentController) Edit() {
 	if conf.GetUploadFileSize() > 0 {
 		c.Data["UploadFileSize"] = conf.GetUploadFileSize()
 	} else {
-		c.Data["UploadFileSize"] = "undefined";
+		c.Data["UploadFileSize"] = "undefined"
 	}
 }
 
@@ -1257,7 +1257,7 @@ func (c *DocumentController) isReadable(identify, token string) *models.BookResu
 				if book.BookPassword != "" {
 					//判断已存在的密码是否正确
 					if password, ok := c.GetSession(identify).(string); !ok || !strings.EqualFold(password, book.BookPassword) {
-						body, err := c.ExecuteViewPathTemplate("document/document_password.tpl", map[string]string{"Identify": book.Identify});
+						body, err := c.ExecuteViewPathTemplate("document/document_password.tpl", map[string]string{"Identify": book.Identify})
 						if err != nil {
 							beego.Error("显示密码页面失败 ->", err)
 						}

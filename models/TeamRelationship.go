@@ -1,11 +1,11 @@
 package models
 
 import (
-	"github.com/lifei6671/mindoc/conf"
-	"time"
-	"github.com/astaxie/beego/orm"
-	"github.com/astaxie/beego"
 	"errors"
+	"github.com/astaxie/beego"
+	"github.com/astaxie/beego/orm"
+	"github.com/ferrisz/mindoc/conf"
+	"time"
 )
 
 type TeamRelationship struct {
@@ -161,8 +161,8 @@ func (m *TeamRelationship) Include() (*TeamRelationship, error) {
 			}
 		}
 	}
-	if m.TeamId > 0{
-		team ,err := NewTeam().First(m.TeamId)
+	if m.TeamId > 0 {
+		team, err := NewTeam().First(m.TeamId)
 		if err == nil {
 			m.TeamName = team.TeamName
 			m.MemberCount = team.MemberCount

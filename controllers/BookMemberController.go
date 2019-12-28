@@ -3,11 +3,11 @@ package controllers
 import (
 	"errors"
 
+	"github.com/astaxie/beego"
 	"github.com/astaxie/beego/logs"
 	"github.com/astaxie/beego/orm"
-	"github.com/lifei6671/mindoc/conf"
-	"github.com/lifei6671/mindoc/models"
-	"github.com/astaxie/beego"
+	"github.com/ferrisz/mindoc/conf"
+	"github.com/ferrisz/mindoc/models"
 )
 
 type BookMemberController struct {
@@ -17,7 +17,7 @@ type BookMemberController struct {
 // AddMember 参加参与用户.
 func (c *BookMemberController) AddMember() {
 	identify := c.GetString("identify")
-	account,_ := c.GetInt("account")
+	account, _ := c.GetInt("account")
 	roleId, _ := c.GetInt("role_id", 3)
 	beego.Info(account)
 	if identify == "" || account <= 0 {
@@ -28,7 +28,6 @@ func (c *BookMemberController) AddMember() {
 	if err != nil {
 		c.JsonResult(6001, err.Error())
 	}
-
 
 	member := models.NewMember()
 

@@ -1,11 +1,11 @@
 package models
 
 import (
-	"time"
-	"github.com/lifei6671/mindoc/conf"
-	"github.com/astaxie/beego/orm"
 	"errors"
 	"github.com/astaxie/beego"
+	"github.com/astaxie/beego/orm"
+	"github.com/ferrisz/mindoc/conf"
+	"time"
 )
 
 //团队.
@@ -47,8 +47,8 @@ func (t *Team) First(id int, cols ...string) (*Team, error) {
 	err := o.QueryTable(t.TableNameWithPrefix()).Filter("team_id", id).One(t, cols...)
 
 	if err != nil {
-		beego.Error("查询团队失败 ->",id, err)
-		return nil,err
+		beego.Error("查询团队失败 ->", id, err)
+		return nil, err
 	}
 	t.Include()
 	return t, err
@@ -63,10 +63,10 @@ func (t *Team) Delete(id int) (err error) {
 	err = o.Begin()
 
 	if err != nil {
-		beego.Error("开启事物时出错 ->",err)
+		beego.Error("开启事物时出错 ->", err)
 		return
 	}
-	_,err = o.QueryTable(t.TableNameWithPrefix()).Filter("team_id",id).Delete()
+	_, err = o.QueryTable(t.TableNameWithPrefix()).Filter("team_id", id).Delete()
 
 	if err != nil {
 		beego.Error("删除团队时出错 ->", err)
@@ -74,7 +74,7 @@ func (t *Team) Delete(id int) (err error) {
 		return
 	}
 
-	_,err = o.Raw("delete from md_team_member where team_id=?;", id).Exec()
+	_, err = o.Raw("delete from md_team_member where team_id=?;", id).Exec()
 
 	if err != nil {
 		beego.Error("删除团队成员时出错 ->", err)
@@ -82,7 +82,7 @@ func (t *Team) Delete(id int) (err error) {
 		return
 	}
 
-	_,err = o.Raw("delete from md_team_relationship where team_id=?;",id).Exec()
+	_, err = o.Raw("delete from md_team_relationship where team_id=?;", id).Exec()
 
 	if err != nil {
 		beego.Error("删除团队项目时出错 ->", err)
@@ -112,7 +112,7 @@ func (t *Team) FindToPager(pageIndex, pageSize int) (list []*Team, totalCount in
 	}
 	totalCount = int(c)
 
-	for _,item := range list {
+	for _, item := range list {
 		item.Include()
 	}
 	return
@@ -122,23 +122,23 @@ func (t *Team) Include() {
 
 	o := orm.NewOrm()
 
-	if member,err := NewMember().Find(t.MemberId,"account","real_name"); err == nil {
+	if member, err := NewMember().Find(t.MemberId, "account", "real_name"); err == nil {
 		if member.RealName != "" {
 			t.MemberName = member.RealName
 		} else {
 			t.MemberName = member.Account
 		}
 	}
-	if c,err := o.QueryTable(NewTeamRelationship().TableNameWithPrefix()).Filter("team_id", t.TeamId).Count(); err == nil {
+	if c, err := o.QueryTable(NewTeamRelationship().TableNameWithPrefix()).Filter("team_id", t.TeamId).Count(); err == nil {
 		t.BookCount = int(c)
 	}
-	if c,err := o.QueryTable(NewTeamMember().TableNameWithPrefix()).Filter("team_id", t.TeamId).Count(); err == nil {
+	if c, err := o.QueryTable(NewTeamMember().TableNameWithPrefix()).Filter("team_id", t.TeamId).Count(); err == nil {
 		t.MemberCount = int(c)
 	}
 }
 
 //更新或添加一个团队.
-func (t *Team) Save(cols ... string) (err error) {
+func (t *Team) Save(cols ...string) (err error) {
 	if t.TeamName == "" {
 		return NewError(5001, "团队名称不能为空")
 	}

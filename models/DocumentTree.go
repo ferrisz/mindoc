@@ -4,7 +4,7 @@ import (
 	"bytes"
 	"fmt"
 	"github.com/astaxie/beego/orm"
-	"github.com/lifei6671/mindoc/conf"
+	"github.com/ferrisz/mindoc/conf"
 	"html/template"
 	"math"
 )
