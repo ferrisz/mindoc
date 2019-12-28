@@ -145,6 +145,7 @@ func (m *Member) ldapLogin(account string, password string) (*Member, error) {
 	}
 	if m.MemberId <= 0 {
 		m.Account = account
+		m.RealName = searchResult.Entries[0].GetAttributeValue("displayName")
 		m.Email = searchResult.Entries[0].GetAttributeValue("mail")
 		m.AuthMethod = "ldap"
 		m.Avatar = "/static/images/headimgurl.jpg"
